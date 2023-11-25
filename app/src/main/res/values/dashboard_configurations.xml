@@ -82,7 +82,8 @@
     </string>
     <string-array name="about_social_links">
         <item>https://www.instagram.com/_u/yourusername</item>
-        <item>https://twitter.com/</item>
+        <item>https://matrix.org/</item>
+        <item>https://.com/</item>
         <item>https://www.behance.net/</item>
         <item>http://github.com/yourusername</item>
         <item>http://www.yourwebsite.com</item>

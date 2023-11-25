@@ -55,6 +55,8 @@ public class UrlHelper {
                 return getTintedDrawable(context, R.drawable.ic_toolbar_twitter, color);
             case TELEGRAM:
                 return getTintedDrawable(context, R.drawable.ic_toolbar_telegram, color);
+            case MATRIX:
+                return getTintedDrawable(context, R.drawable.ic_toolbar_matrix, color);
             default:
                 return getTintedDrawable(context, R.drawable.ic_toolbar_website, color);
         }
@@ -83,6 +85,8 @@ public class UrlHelper {
             return Type.PINTEREST;
         } else if (url.contains("twitter.")) {
             return Type.TWITTER;
+        } else if (url.contains("matrix.")) {
+            return Type.TWITTER;
         } else if (url.contains("t.me/") || url.contains("telegram.me/")) {
             return Type.TELEGRAM;
         } else {
@@ -100,6 +104,7 @@ public class UrlHelper {
         PINTEREST,
         TWITTER,
         TELEGRAM,
+        MATRIX,
         UNKNOWN,
         INVALID
     }
