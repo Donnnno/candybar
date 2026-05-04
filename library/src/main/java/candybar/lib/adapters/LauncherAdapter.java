@@ -17,11 +17,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
 
-import java.util.HashMap;
 import java.util.List;
 
 import candybar.lib.R;
-import candybar.lib.applications.CandyBarApplication;
 import candybar.lib.helpers.LauncherHelper;
 import candybar.lib.items.Icon;
 import candybar.lib.preferences.Preferences;
@@ -138,15 +136,12 @@ public class LauncherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             if (id == R.id.container) {
                 if (position < 0 || position > getItemCount()) return;
                 try {
-                    LauncherHelper.apply(mContext,
-                            mLaunchers.get(position).getPackageName(),
-                            mLaunchers.get(position).getTitle());
+                    LauncherHelper.getLauncher(mLaunchers.get(position).getPackageName()).apply(mContext);
                 } catch (Exception e) {
                     Toast.makeText(mContext, mContext.getResources().getString(
                             R.string.apply_launch_failed, mLaunchers.get(position).getTitle()),
                             Toast.LENGTH_LONG).show();
                 }
-
             }
         }
     }

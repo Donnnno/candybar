@@ -76,7 +76,9 @@ public class HomeFragment extends Fragment implements HomeListener {
 
         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                 "view",
-                new HashMap<String, Object>() {{ put("section", "home"); }}
+                new HashMap<>() {{
+                    put("section", "home");
+                }}
         );
 
         mManager = new StaggeredGridLayoutManager(
@@ -131,8 +133,7 @@ public class HomeFragment extends Fragment implements HomeListener {
             return;
         }
 
-        if (adapter instanceof HomeAdapter) {
-            HomeAdapter homeAdapter = (HomeAdapter) adapter;
+        if (adapter instanceof HomeAdapter homeAdapter) {
             int index = homeAdapter.getIconRequestIndex();
             if (index >= 0 && index < adapter.getItemCount()) {
                 adapter.notifyItemChanged(index);
@@ -212,8 +213,7 @@ public class HomeFragment extends Fragment implements HomeListener {
                 return;
             }
 
-            if (adapter instanceof HomeAdapter) {
-                HomeAdapter homeAdapter = (HomeAdapter) adapter;
+            if (adapter instanceof HomeAdapter homeAdapter) {
                 int index = homeAdapter.getWallpapersIndex();
                 if (index >= 0 && index < adapter.getItemCount()) {
                     adapter.notifyItemChanged(index);

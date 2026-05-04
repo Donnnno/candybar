@@ -42,6 +42,7 @@ import candybar.lib.fragments.IconsFragment;
 import candybar.lib.helpers.IconsHelper;
 import candybar.lib.helpers.IntentHelper;
 import candybar.lib.items.Icon;
+import me.zhanghai.android.fastscroll.PopupTextProvider;
 
 /*
  * CandyBar - Material Dashboard
@@ -61,7 +62,7 @@ import candybar.lib.items.Icon;
  * limitations under the License.
  */
 
-public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder> {
+public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder> implements PopupTextProvider {
 
     private final Context mContext;
     private List<Icon> mIcons;
@@ -192,8 +193,7 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder> 
         super.onAttachedToRecyclerView(recyclerView);
         mRecyclerView = new WeakReference<>(recyclerView);
         RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
-        if (manager instanceof GridLayoutManager && getItemCount() > 0) {
-            GridLayoutManager glm = (GridLayoutManager) manager;
+        if (manager instanceof GridLayoutManager glm && getItemCount() > 0) {
             recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -268,6 +268,16 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder> 
             ViewHolder holder = getViewHolderAt(i);
             if (holder != null) loadIconInto(holder.icon, i);
         }
+    }
+
+    @NonNull
+    @Override
+    public CharSequence getPopupText(@NonNull View view, int position) {
+        String name = mIcons.get(position).getTitle();
+        if (name != null) {
+            return name.substring(0, 1);
+        }
+        return "";
     }
 
     private interface CheckChangedListener {
@@ -397,7 +407,7 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder> 
         if (mIcons.isEmpty()) {
             CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                     "click",
-                    new HashMap<String, Object>() {{
+                    new HashMap<>() {{
                         put("section", "icons");
                         put("action", "search");
                         put("item", query);
@@ -408,7 +418,7 @@ public class IconsAdapter extends RecyclerView.Adapter<IconsAdapter.ViewHolder> 
         } else {
             CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                     "click",
-                    new HashMap<String, Object>() {{
+                    new HashMap<>() {{
                         put("section", "icons");
                         put("action", "search");
                         put("item", query);

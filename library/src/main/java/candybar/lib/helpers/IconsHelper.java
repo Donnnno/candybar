@@ -30,7 +30,9 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import candybar.lib.R;
 import candybar.lib.activities.CandyBarMainActivity;
@@ -90,14 +92,13 @@ public class IconsHelper {
         List<Icon> icons = new ArrayList<>();
         List<Icon> sections = new ArrayList<>();
 
-        int count = 0;
+        Set<Integer> uniqueIds = new HashSet<>();
         while (eventType != XmlPullParser.END_DOCUMENT) {
             if (eventType == XmlPullParser.START_TAG) {
                 if (parser.getName().equals("category")) {
                     String title = parser.getAttributeValue(null, "title");
                     if (!sectionTitle.equals(title)) {
                         if (!sectionTitle.isEmpty() && !icons.isEmpty()) {
-                            count += icons.size();
                             sections.add(new Icon(sectionTitle, icons));
                         }
                     }
@@ -109,17 +110,17 @@ public class IconsHelper {
                     int id = DrawableHelper.getDrawableId(drawableName);
                     if (id > 0) {
                         icons.add(new Icon(drawableName, customName, id));
+                        uniqueIds.add(id);
                     }
                 }
             }
 
             eventType = parser.next();
         }
-        count += icons.size();
-        CandyBarMainActivity.sIconsCount = count;
+        CandyBarMainActivity.sIconsCount = uniqueIds.size();
         if (!CandyBarApplication.getConfiguration().isAutomaticIconsCountEnabled() &&
                 CandyBarApplication.getConfiguration().getCustomIconsCount() == 0) {
-            CandyBarApplication.getConfiguration().setCustomIconsCount(count);
+            CandyBarApplication.getConfiguration().setCustomIconsCount(CandyBarMainActivity.sIconsCount);
         }
         if (!icons.isEmpty()) {
             sections.add(new Icon(sectionTitle, icons));
@@ -129,24 +130,24 @@ public class IconsHelper {
     }
 
     public static List<Icon> getTabAllIcons() {
-        List<Icon> icons = new ArrayList<>();
+        Set<Icon> iconSet = new HashSet<>();
         String[] categories = CandyBarApplication.getConfiguration().getCategoryForTabAllIcons();
 
         if (categories != null && categories.length > 0) {
             for (String category : categories) {
                 for (Icon section : CandyBarMainActivity.sSections) {
                     if (section.getTitle().equals(category)) {
-                        icons.addAll(section.getIcons());
+                        iconSet.addAll(section.getIcons());
                         break;
                     }
                 }
             }
         } else {
             for (Icon section : CandyBarMainActivity.sSections) {
-                icons.addAll(section.getIcons());
+                iconSet.addAll(section.getIcons());
             }
         }
-
+        List<Icon> icons = new ArrayList<>(iconSet);
         Collections.sort(icons, Icon.TitleComparator);
         return icons;
     }
@@ -194,7 +195,7 @@ public class IconsHelper {
     public static void selectIcon(@NonNull Context context, int action, Icon icon) {
         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                 "click",
-                new HashMap<String, Object>() {{
+                new HashMap<>() {{
                     put("section", "icons");
                     put("action", "pick_icon");
                     put("item", icon.getDrawableName());
@@ -239,7 +240,7 @@ public class IconsHelper {
                     .load("drawable://" + icon.getRes())
                     .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .listener(new RequestListener<Bitmap>() {
+                    .listener(new RequestListener<>() {
                         private void handleResult(Bitmap bitmap) {
                             Intent intent = new Intent();
                             if (bitmap != null) {
@@ -287,7 +288,7 @@ public class IconsHelper {
     }
 
     public interface OnFileNameChange {
-        public void call(String newName);
+        void call(String newName);
     }
 
     @Nullable

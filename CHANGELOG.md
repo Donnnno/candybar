@@ -2,6 +2,28 @@
 
 [c2]: https://github.com/Donnnno
 
+[//]: # (TODO: Fix images with transparent background showing placeholder in translators dialog)
+
+# v3.22.2
+- Fixed bottom bar overlapping in wallpaper preview
+
+# v3.22.1
+- Fixed issue with predictive back gesture
+- Minor fixes
+
+# v3.22.0
+- Improved CandyBar for library usage (thanks to [@moertel][c1])
+- Added support for Ion Launcher and mLauncher (thanks to [@GitGitro](https://github.com/GitGitro))
+- Fixed PhotoView (thanks to [@Donnnno][c2])
+- Fixed icons showing multiple times in all icons tab (thanks to [@Kaiserdragon2](https://github.com/Kaiserdragon2))
+- Upgrade Billing Library to version 8
+- Updated translations
+- Updated Gradle and AGP
+- Updated dependencies
+
+# v3.21.1
+- Fixed deprecated features
+
 # v3.21.0
 - Fixed dependency issue with photoview
 - Updated social icons in the about section

@@ -91,9 +91,9 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         mShowContributors = mContext.getResources().getBoolean(R.bool.show_contributors_dialog);
 
-        mShowPrivacyPolicy = mContext.getResources().getString(R.string.privacy_policy_link).length() > 0;
+        mShowPrivacyPolicy = !mContext.getResources().getString(R.string.privacy_policy_link).isEmpty();
 
-        mShowTerms = mContext.getResources().getString(R.string.terms_and_conditions_link).length() > 0;
+        mShowTerms = !mContext.getResources().getString(R.string.terms_and_conditions_link).isEmpty();
 
         mShowExtraInfo = mShowContributors || mShowPrivacyPolicy || mShowTerms;
 
@@ -215,8 +215,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         subtitle.getPaddingRight(),
                         subtitle.getPaddingBottom() + mContext.getResources().getDimensionPixelSize(R.dimen.content_margin));
             } else {
-                if (recyclerView.getLayoutParams() instanceof LinearLayout.LayoutParams) {
-                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) recyclerView.getLayoutParams();
+                if (recyclerView.getLayoutParams() instanceof LinearLayout.LayoutParams params) {
                     if (urls.length < 7) {
                         params.width = LinearLayout.LayoutParams.WRAP_CONTENT;
                         params.gravity = Gravity.CENTER_HORIZONTAL;
@@ -229,11 +228,10 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             MaterialCardView card = itemView.findViewById(R.id.card);
             if (CandyBarApplication.getConfiguration().getAboutStyle() == CandyBarApplication.Style.PORTRAIT_FLAT_LANDSCAPE_FLAT &&
                     card != null) {
-                if (card.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams) {
+                if (card.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams params) {
                     card.setRadius(0f);
                     card.setUseCompatPadding(false);
                     int margin = mContext.getResources().getDimensionPixelSize(R.dimen.card_margin);
-                    StaggeredGridLayoutManager.LayoutParams params = (StaggeredGridLayoutManager.LayoutParams) card.getLayoutParams();
                     params.setMargins(0, 0, margin, margin);
                     params.setMarginEnd(margin);
                 }
@@ -276,11 +274,10 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             MaterialCardView card = itemView.findViewById(R.id.card);
             if (CandyBarApplication.getConfiguration().getAboutStyle() == CandyBarApplication.Style.PORTRAIT_FLAT_LANDSCAPE_FLAT &&
                     card != null) {
-                if (card.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams) {
+                if (card.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams params) {
                     card.setRadius(0f);
                     card.setUseCompatPadding(false);
                     int margin = mContext.getResources().getDimensionPixelSize(R.dimen.card_margin);
-                    StaggeredGridLayoutManager.LayoutParams params = (StaggeredGridLayoutManager.LayoutParams) card.getLayoutParams();
                     params.setMargins(0, 0, margin, margin);
                     params.setMarginEnd(margin);
                 }
@@ -335,7 +332,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (id == R.id.contributors_title) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, Object>() {{
+                        new HashMap<>() {{
                             put("section", "about");
                             put("action", "open_dialog");
                             put("item", "contributors");
@@ -346,7 +343,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             } else if (id == R.id.privacy_policy_title) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, Object>() {{
+                        new HashMap<>() {{
                             put("section", "about");
                             put("action", "open_dialog");
                             put("item", "privacy_policy");
@@ -358,7 +355,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             } else if (id == R.id.terms_title) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, Object>() {{
+                        new HashMap<>() {{
                             put("section", "about");
                             put("action", "open_dialog");
                             put("item", "terms_and_conditions");
@@ -384,11 +381,10 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             MaterialCardView card = itemView.findViewById(R.id.card);
             if (CandyBarApplication.getConfiguration().getAboutStyle() == CandyBarApplication.Style.PORTRAIT_FLAT_LANDSCAPE_FLAT &&
                     card != null) {
-                if (card.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams) {
+                if (card.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams params) {
                     card.setRadius(0f);
                     card.setUseCompatPadding(false);
                     int margin = mContext.getResources().getDimensionPixelSize(R.dimen.card_margin);
-                    StaggeredGridLayoutManager.LayoutParams params = (StaggeredGridLayoutManager.LayoutParams) card.getLayoutParams();
                     params.setMargins(0, 0, margin, margin);
                     params.setMarginEnd(margin);
                 }
@@ -431,7 +427,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (id == R.id.about_dashboard_licenses) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, Object>() {{
+                        new HashMap<>() {{
                             put("section", "about");
                             put("action", "open_dialog");
                             put("item", "licenses");
@@ -444,7 +440,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (id == R.id.about_dashboard_contributors) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, Object>() {{
+                        new HashMap<>() {{
                             put("section", "about");
                             put("action", "open_dialog");
                             put("item", "contributors");
@@ -458,7 +454,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (id == R.id.about_dashboard_translator) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, Object>() {{
+                        new HashMap<>() {{
                             put("section", "about");
                             put("action", "open_dialog");
                             put("item", "translators");
@@ -473,7 +469,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (id == R.id.about_dashboard_github) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, Object>() {{
+                        new HashMap<>() {{
                             put("section", "about");
                             put("action", "open_dialog");
                             put("item", "github");

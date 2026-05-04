@@ -137,7 +137,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         String link = mContext.getResources().getString(R.string.google_play_dev);
-        if (link.length() > 0) {
+        if (!link.isEmpty()) {
             mItemsCount += 1;
             mShowMoreApps = true;
         }
@@ -208,7 +208,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
 
             String home_title_text = mContext.getResources().getString(R.string.home_title);
-            if (home_title_text.length() > 0) {
+            if (!home_title_text.isEmpty()) {
                 headerViewHolder.title.setText(home_title_text);
             } else {
                 headerViewHolder.title.setVisibility(View.GONE);
@@ -250,7 +250,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                                 .load("drawable://" + mHomes.get(finalPosition).getIcon())
                                 .skipMemoryCache(true)
                                 .diskCacheStrategy(DiskCacheStrategy.NONE)
-                                .listener(new RequestListener<Bitmap>() {
+                                .listener(new RequestListener<>() {
                                     @Override
                                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
                                         return true;
@@ -303,7 +303,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             contentViewHolder.title.setTypeface(TypefaceHelper.getMedium(mContext));
             contentViewHolder.title.setText(mHomes.get(finalPosition).getTitle());
 
-            if (mHomes.get(finalPosition).getSubtitle().length() > 0) {
+            if (!mHomes.get(finalPosition).getSubtitle().isEmpty()) {
                 contentViewHolder.subtitle.setText(mHomes.get(finalPosition).getSubtitle());
                 contentViewHolder.subtitle.setVisibility(View.VISIBLE);
             }
@@ -335,7 +335,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                     "stats",
-                    new HashMap<String, Object>() {{
+                    new HashMap<>() {{
                         put("section", "home");
                         put("installed", installed);
                         put("missed", missed);
@@ -390,18 +390,16 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             MaterialCardView card = itemView.findViewById(R.id.card);
             if (CandyBarApplication.getConfiguration().getHomeGrid() == CandyBarApplication.GridStyle.FLAT) {
-                if (card.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams) {
+                if (card.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams params) {
                     card.setRadius(0f);
                     card.setUseCompatPadding(false);
                     int margin = mContext.getResources().getDimensionPixelSize(R.dimen.card_margin);
-                    StaggeredGridLayoutManager.LayoutParams params = (StaggeredGridLayoutManager.LayoutParams) card.getLayoutParams();
                     params.setMargins(0, 0, margin, margin);
                     params.setMarginEnd(margin);
-                } else if (card.getLayoutParams() instanceof LinearLayout.LayoutParams) {
+                } else if (card.getLayoutParams() instanceof LinearLayout.LayoutParams params) {
                     card.setRadius(0f);
                     card.setUseCompatPadding(false);
                     int margin = mContext.getResources().getDimensionPixelSize(R.dimen.card_margin);
-                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) card.getLayoutParams();
                     if (mImageStyle.getType() == Home.Style.Type.LANDSCAPE ||
                             mImageStyle.getType() == Home.Style.Type.SQUARE) {
                         params.setMargins(margin,
@@ -428,15 +426,15 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 card.setCardElevation(0);
             }
 
-            if (mContext.getResources().getString(R.string.rate_and_review_link).length() == 0) {
+            if (mContext.getResources().getString(R.string.rate_and_review_link).isEmpty()) {
                 rate.setVisibility(View.GONE);
             }
 
-            if (mContext.getResources().getString(R.string.share_link).length() == 0) {
+            if (mContext.getResources().getString(R.string.share_link).isEmpty()) {
                 share.setVisibility(View.GONE);
             }
 
-            if ((!mContext.getResources().getBoolean(R.bool.enable_check_update)) || (CandyBarApplication.getConfiguration().getConfigHandler().configJson(mContext).length() == 0)) {
+            if ((!mContext.getResources().getBoolean(R.bool.enable_check_update)) || (CandyBarApplication.getConfiguration().getConfigHandler().configJson(mContext).isEmpty())) {
                 update.setVisibility(View.GONE);
             }
 
@@ -462,7 +460,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if (id == R.id.rate) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, Object>() {{
+                        new HashMap<>() {{
                             put("section", "home");
                             put("action", "open_dialog");
                             put("item", "rate_and_review");
@@ -475,7 +473,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             } else if (id == R.id.share) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, Object>() {{
+                        new HashMap<>() {{
                             put("section", "home");
                             put("action", "open_dialog");
                             put("item", "share");
@@ -495,7 +493,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             } else if (id == R.id.update) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, Object>() {{
+                        new HashMap<>() {{
                             put("section", "home");
                             put("action", "open_dialog");
                             put("item", "update");
@@ -654,11 +652,10 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             MaterialCardView card = itemView.findViewById(R.id.card);
             if (CandyBarApplication.getConfiguration().getHomeGrid() == CandyBarApplication.GridStyle.FLAT) {
-                if (card.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams) {
+                if (card.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams params) {
                     card.setRadius(0f);
                     card.setUseCompatPadding(false);
                     int margin = mContext.getResources().getDimensionPixelSize(R.dimen.card_margin);
-                    StaggeredGridLayoutManager.LayoutParams params = (StaggeredGridLayoutManager.LayoutParams) card.getLayoutParams();
                     params.setMargins(0, 0, margin, margin);
                     params.setMarginEnd(margin);
                 }
@@ -695,7 +692,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     case APPLY:
                         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                                 "click",
-                                new HashMap<String, Object>() {{
+                                new HashMap<>() {{
                                     put("section", "home");
                                     put("action", "navigate");
                                     put("item", "icon_apply");
@@ -708,26 +705,25 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     case DONATE:
                         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                                 "click",
-                                new HashMap<String, Object>() {{
+                                new HashMap<>() {{
                                     put("section", "home");
                                     put("action", "open_dialog");
                                     put("item", "donate");
                                 }}
                         );
-                        if (mContext instanceof CandyBarMainActivity) {
+                        if (mContext instanceof CandyBarMainActivity mainActivity) {
                             if (CandyBarApplication.getConfiguration().getDonationLinks() != null) {
                                 DonationLinksFragment.showDonationLinksDialog(((AppCompatActivity) mContext).getSupportFragmentManager());
                                 break;
                             }
 
-                            CandyBarMainActivity mainActivity = (CandyBarMainActivity) mContext;
                             mainActivity.showSupportDevelopmentDialog();
                         }
                         break;
                     case ICONS:
                         CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                                 "click",
-                                new HashMap<String, Object>() {{
+                                new HashMap<>() {{
                                     put("section", "home");
                                     put("action", "navigate");
                                     put("item", "icons");
@@ -783,11 +779,10 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             MaterialCardView card = itemView.findViewById(R.id.card);
             if (CandyBarApplication.getConfiguration().getHomeGrid() == CandyBarApplication.GridStyle.FLAT) {
-                if (card.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams) {
+                if (card.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams params) {
                     card.setRadius(0f);
                     card.setUseCompatPadding(false);
                     int margin = mContext.getResources().getDimensionPixelSize(R.dimen.card_margin);
-                    StaggeredGridLayoutManager.LayoutParams params = (StaggeredGridLayoutManager.LayoutParams) card.getLayoutParams();
                     params.setMargins(0, 0, margin, margin);
                     params.setMarginEnd(margin);
                 }
@@ -825,7 +820,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if (id == R.id.container) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, Object>() {{
+                        new HashMap<>() {{
                             put("section", "home");
                             put("action", "navigate");
                             put("item", "icon_request");
@@ -847,11 +842,10 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             MaterialCardView card = itemView.findViewById(R.id.card);
             if (CandyBarApplication.getConfiguration().getHomeGrid() == CandyBarApplication.GridStyle.FLAT) {
-                if (card.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams) {
+                if (card.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams params) {
                     card.setRadius(0f);
                     card.setUseCompatPadding(false);
                     int margin = mContext.getResources().getDimensionPixelSize(R.dimen.card_margin);
-                    StaggeredGridLayoutManager.LayoutParams params = (StaggeredGridLayoutManager.LayoutParams) card.getLayoutParams();
                     params.setMargins(0, 0, margin, margin);
                     params.setMarginEnd(margin);
                 }
@@ -907,11 +901,10 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             MaterialCardView card = itemView.findViewById(R.id.card);
             if (CandyBarApplication.getConfiguration().getHomeGrid() == CandyBarApplication.GridStyle.FLAT) {
-                if (card.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams) {
+                if (card.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams params) {
                     card.setRadius(0f);
                     card.setUseCompatPadding(false);
                     int margin = mContext.getResources().getDimensionPixelSize(R.dimen.card_margin);
-                    StaggeredGridLayoutManager.LayoutParams params = (StaggeredGridLayoutManager.LayoutParams) card.getLayoutParams();
                     params.setMargins(0, 0, margin, margin);
                     params.setMarginEnd(margin);
                 }
@@ -946,7 +939,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if (id == R.id.container) {
                 CandyBarApplication.getConfiguration().getAnalyticsHandler().logEvent(
                         "click",
-                        new HashMap<String, Object>() {{
+                        new HashMap<>() {{
                             put("section", "home");
                             put("action", "open_dialog");
                             put("item", "other_apps");
