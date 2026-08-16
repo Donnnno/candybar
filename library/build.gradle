@@ -101,7 +101,7 @@ dependencies {
     api 'androidx.annotation:annotation:1.10.0'
     api 'androidx.appcompat:appcompat:1.7.0' // higher versions don't support targetSDK 21 anymore
     api 'com.google.android.apps.muzei:muzei-api:3.4.2'
-    api 'com.android.billingclient:billing:9.1.0'
+    api 'com.android.billingclient:billing:8.0.0' // higher versions don't support targetSDK 21 anymore
     api 'dev.jahir.KustomAPI:api:6369c37'
     api 'dev.jahir.KustomAPI:preset:6369c37'
 
