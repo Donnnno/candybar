@@ -109,7 +109,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.2.0'
     implementation 'androidx.palette:palette:1.0.0'
-    implementation 'com.google.android.material:material:1.14.0'
+    implementation 'com.google.android.material:material:1.13.0' // 1.14.0 or higher doesn't support targetSDK 21 anymore
     implementation 'androidx.viewpager2:viewpager2:1.1.0'
     implementation 'com.google.android.play:review:2.0.2'
     implementation 'androidx.core:core-splashscreen:1.2.0'
