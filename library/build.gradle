@@ -99,7 +99,7 @@ dependencies {
     implementation project(':extLibs:PreLollipopTransitions')
 
     api 'androidx.annotation:annotation:1.10.0'
-    api 'androidx.appcompat:appcompat:1.8.0'
+    api 'androidx.appcompat:appcompat:1.7.0' // 1.7.0 or higher doesn't support targetSDK 21 anymore
     api 'com.google.android.apps.muzei:muzei-api:3.4.2'
     api 'com.android.billingclient:billing:9.1.0'
     api 'dev.jahir.KustomAPI:api:6369c37'
