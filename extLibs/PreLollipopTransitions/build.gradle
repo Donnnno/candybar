@@ -71,5 +71,5 @@ java {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0' // higher versions don't support targetSDK 21 anymore
 }
