@@ -105,7 +105,7 @@ dependencies {
     api 'dev.jahir.KustomAPI:api:6369c37'
     api 'dev.jahir.KustomAPI:preset:6369c37'
 
-    implementation 'androidx.work:work-runtime:2.11.2'
+    implementation 'androidx.work:work-runtime:2.10.5'  // 2.10.5 or higher doesn't support targetSDK 21 anymore
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.2.0'
     implementation 'androidx.palette:palette:1.0.0'
